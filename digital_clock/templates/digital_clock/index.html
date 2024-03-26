@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: antiquewhite;
+        }
+
+        .section-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative; /* Make container position relative for absolute positioning */
+        }
+
+        .clock-container, .stopwatch-container {
+            text-align: center;
+            margin: 0 100px; /* Add margin for space between sections */
+        }
+
+        #clock, #stopwatch {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #74d0d4;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stopwatch-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .stopwatch-controls button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+        }
+
+        .stopwatch-controls button:hover {
+            background-color: #9fd1da; /* Change background color on hover */
+            color: #000000; /* Change text color on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add glowing shadow on hover */
+        }
+
+        .stopwatch-heading, .clock-heading {
+            font-family: 'Sports Font', sans-serif;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .stopwatch-heading:hover, .clock-heading:hover {
+            color: #73e661; /* Change color on hover */
+            transform: scale(1.78); /* Scale up on hover */
+        }
+
+        .line {
+            position: absolute;
+            height: 100vh;
+            width: 2px;
+            background-color: #333;
+            left: calc(50% - 1px); /* Center the line */
+            z-index: -1; /* Push line behind the containers */
+            transition: background-color 0.3s; /* Add transition for color change */
+        }
+    </style>
+    <script>
+        var stopwatchInterval;
+        var milliseconds = 0;
+        var seconds = 0;
+        var minutes = 0;
+
+        function startStopwatch() {
+            stopwatchInterval = setInterval(updateStopwatch, 10);
+        }
+
+        function pauseStopwatch() {
+            clearInterval(stopwatchInterval);
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            milliseconds = 0;
+            seconds = 0;
+            minutes = 0;
+            document.getElementById('stopwatch').innerText = "00:00:00";
+        }
+
+        function updateStopwatch() {
+            milliseconds++;
+            if (milliseconds == 100) {
+                milliseconds = 0;
+                seconds++;
+                if (seconds == 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+            }
+            document.getElementById('stopwatch').innerText = minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0') + ":" + milliseconds.toString().padStart(2, '0');
+        }
+
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            document.getElementById('clock').innerText = hours + ":" + minutes + ":" + seconds;
+        }
+
+        setInterval(updateClock, 1000);
+
+        // Function to change the color of the line
+        function changeLineColor() {
+            var line = document.querySelector('.line');
+            var randomColor = "#" + Math.floor(Math.random()*16777215).toString(16); // Generate random hex color
+            line.style.backgroundColor = randomColor;
+        }
+
+        setInterval(changeLineColor, 3000); // Change color every 3 seconds
+    </script>
+</head>
+<body>
+    <div class="section-container">
+        <div class="clock-container">
+            <h1 class="clock-heading">Digital Clock</h1> <!-- Added hover effect and font -->
+            <div id="clock"></div>
+        </div>
+        <div class="line"></div> <!-- Vertical line -->
+        <div class="stopwatch-container">
+            <h1 class="stopwatch-heading">Stopwatch</h1> <!-- Added hover effect and font -->
+            <div id="stopwatch">00:00:00</div>
+            <div class="stopwatch-controls">
+                <button onclick="startStopwatch()">Start</button>
+                <button onclick="pauseStopwatch()">Pause</button>
+                <button onclick="resetStopwatch()">Reset</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
