@@ -12,7 +12,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: antiquewhite;
+            background-color: rgb(0, 0, 0);
         }
 
         .section-container {
@@ -31,14 +31,14 @@
         #clock, #stopwatch {
             width: 200px;
             height: 200px;
-            border: 10px solid #74d0d4;
+            border: 10px solid #ff2a2a;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 20px;
         }
 
@@ -58,9 +58,9 @@
         }
 
         .stopwatch-controls button:hover {
-            background-color: #9fd1da; /* Change background color on hover */
+            background-color: #0fc7d1; /* Change background color on hover */
             color: #000000; /* Change text color on hover */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add glowing shadow on hover */
+            box-shadow: 0 0 10px rgba(83, 83, 81, 0.984); /* Add glowing shadow on hover */
         }
 
         .stopwatch-heading, .clock-heading {
@@ -70,7 +70,7 @@
         }
 
         .stopwatch-heading:hover, .clock-heading:hover {
-            color: #73e661; /* Change color on hover */
+            color: #ce0f88; /* Change color on hover */
             transform: scale(1.78); /* Scale up on hover */
         }
 
@@ -82,6 +82,9 @@
             left: calc(50% - 1px); /* Center the line */
             z-index: -1; /* Push line behind the containers */
             transition: background-color 0.3s; /* Add transition for color change */
+        }
+        .stopwatch-heading,.clock-heading{
+            color: #ffffff;
         }
     </style>
     <script>
